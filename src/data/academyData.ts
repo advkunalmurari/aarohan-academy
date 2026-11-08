@@ -74,7 +74,7 @@ export interface FaqItem {
 export const BRAND_ASSETS = {
   logo: '/assets/aistudio/Logo_6217babd.png',
   realClassroomFloor: '/assets/aistudio/images__1__6c7a0e55.jpeg',
-  happyChildrenTeacher: '/assets/aistudio/images_d344f08f.jpeg',
+  happyChildrenTeacher: '/assets/aarohan_students_learning.jpg',
   attentiveGirlsWriting: '/assets/aistudio/aee644715e4b44adfb85446b4aeeb1c7_27714f12.jpg',
   classroomDesksChalkboard: '/assets/aistudio/4d761013b970774a3c12cfff719cd418_4eb768d9.jpg',
   confidentStudentGirl: '/assets/aistudio/images__2__35ec12f0.jpeg',
