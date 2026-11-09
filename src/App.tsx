@@ -15,9 +15,16 @@ import { ArticleItem } from './data/academyData';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { HomeView } from './components/HomeView';
-import { CurriculumPagesView } from './components/CurriculumPagesView';
-import { ResourcesAndSupportView } from './components/ResourcesAndSupportView';
-import { WorksheetModal } from './components/WorksheetModal';
+
+const CurriculumPagesView = React.lazy(() =>
+  import('./components/CurriculumPagesView').then((m) => ({ default: m.CurriculumPagesView }))
+);
+const ResourcesAndSupportView = React.lazy(() =>
+  import('./components/ResourcesAndSupportView').then((m) => ({ default: m.ResourcesAndSupportView }))
+);
+const WorksheetModal = React.lazy(() =>
+  import('./components/WorksheetModal').then((m) => ({ default: m.WorksheetModal }))
+);
 
 const VALID_PAGES: PageId[] = [
   'home',
@@ -104,47 +111,56 @@ export default function App() {
           />
         )}
 
-        {(currentPage === 'about' ||
-          currentPage === 'approach' ||
-          currentPage === 'programmes' ||
-          currentPage === 'prog-early' ||
-          currentPage === 'prog-primary-1-2' ||
-          currentPage === 'prog-primary-3-5' ||
-          currentPage === 'prog-middle-6-8' ||
-          currentPage === 'subjects' ||
-          currentPage === 'assessment') && (
-          <CurriculumPagesView
-            page={currentPage}
-            lang={lang}
-            onNavigate={handleNavigate}
-            onOpenWorksheet={(res) => setSelectedWorksheet(res)}
-          />
-        )}
+        <React.Suspense
+          fallback={
+            <div className="min-h-[50vh] flex items-center justify-center">
+              <div className="w-8 h-8 border-4 border-[#24476B] border-t-transparent rounded-full animate-spin" />
+            </div>
+          }
+        >
+          {(currentPage === 'about' ||
+            currentPage === 'approach' ||
+            currentPage === 'programmes' ||
+            currentPage === 'prog-early' ||
+            currentPage === 'prog-primary-1-2' ||
+            currentPage === 'prog-primary-3-5' ||
+            currentPage === 'prog-middle-6-8' ||
+            currentPage === 'subjects' ||
+            currentPage === 'assessment') && (
+            <CurriculumPagesView
+              page={currentPage}
+              lang={lang}
+              onNavigate={handleNavigate}
+              onOpenWorksheet={(res) => setSelectedWorksheet(res)}
+            />
+          )}
 
-        {(currentPage === 'library' ||
-          currentPage === 'parent-corner' ||
-          currentPage === 'faqs' ||
-          currentPage === 'admissions' ||
-          currentPage === 'contact' ||
-          currentPage === 'privacy') && (
-          <ResourcesAndSupportView
-            page={currentPage}
-            lang={lang}
-            onNavigate={handleNavigate}
-            onOpenWorksheet={(res) => setSelectedWorksheet(res)}
-            onOpenArticle={(art) => setSelectedArticle(art)}
-          />
-        )}
+          {(currentPage === 'library' ||
+            currentPage === 'parent-corner' ||
+            currentPage === 'faqs' ||
+            currentPage === 'admissions' ||
+            currentPage === 'contact' ||
+            currentPage === 'privacy') && (
+            <ResourcesAndSupportView
+              page={currentPage}
+              lang={lang}
+              onNavigate={handleNavigate}
+              onOpenWorksheet={(res) => setSelectedWorksheet(res)}
+              onOpenArticle={(art) => setSelectedArticle(art)}
+            />
+          )}
+
+          {selectedWorksheet && (
+            <WorksheetModal
+              resource={selectedWorksheet}
+              onClose={() => setSelectedWorksheet(null)}
+              lang={lang}
+            />
+          )}
+        </React.Suspense>
       </main>
 
       <Footer onNavigate={handleNavigate} lang={lang} />
-
-      {/* Printable A4 Worksheet Modal */}
-      <WorksheetModal
-        resource={selectedWorksheet}
-        onClose={() => setSelectedWorksheet(null)}
-        lang={lang}
-      />
 
       {/* Parent Corner Quick Article Reader Modal */}
       {selectedArticle && (

@@ -361,6 +361,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
                         ? 'Joyful children learning at Aarohan Academy in Najafgarh'
                         : 'आरोहण अकैडमी नजफगढ़ में सीखते हुए उत्साहित बच्चे'
                     }
+                    width={640}
+                    height={360}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
                     className="w-full h-72 sm:h-80 object-cover"
                   />
                   <div className="p-4 sm:p-5 bg-white">
