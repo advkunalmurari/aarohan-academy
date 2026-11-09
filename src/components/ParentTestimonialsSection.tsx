@@ -159,8 +159,8 @@ export const ParentTestimonialsSection: React.FC<ParentTestimonialsSectionProps>
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
               {lang === 'en'
-                ? 'Collected during our Monthly Growth Note interactions at H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh. Focused on real reading, writing, and conceptual habits rather than commercial hype.'
-                : 'मकान नं. 54B, गुप्ता पार्क, नजफगढ़ में मासिक ग्रोथ नोट चर्चा के दौरान अभिभावकों द्वारा साझा किए गए वास्तविक अनुभव।'}
+                ? 'Collected during our Monthly Growth Note interactions at H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh. Focused on real reading, writing, and conceptual habits rather than commercial hype.'
+                : 'मकान नं. 49B, गुप्ता पार्क, नजफगढ़ में मासिक ग्रोथ नोट चर्चा के दौरान अभिभावकों द्वारा साझा किए गए वास्तविक अनुभव।'}
             </p>
           </div>
 

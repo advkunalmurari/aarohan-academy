@@ -68,7 +68,7 @@ test('buildWhatsAppUrl constructs valid click-to-chat URL for +91 9220357826', (
 test('buildGoogleMapsDirectionsUrl includes Gupta Park, Todarmal Colony, Najafgarh', () => {
   const mapsUrl = buildGoogleMapsDirectionsUrl();
   assert.ok(mapsUrl.startsWith('https://www.google.com/maps/dir/?api=1&destination='));
-  assert.ok(decodeURIComponent(mapsUrl).includes('H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh'));
+  assert.ok(decodeURIComponent(mapsUrl).includes('H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh'));
 });
 
 test('validateEnquiryForm rejects empty or invalid inputs and accepts valid data', () => {

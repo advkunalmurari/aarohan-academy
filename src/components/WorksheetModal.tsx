@@ -43,7 +43,7 @@ export const WorksheetModal: React.FC<WorksheetModalProps> = ({
   <div class="header">
     <div>
       <h1 class="title">Aarohan Academy • आरोहण अकैडमी</h1>
-      <div class="meta">Learn • Grow • Shine | H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh, Delhi (+91 9220357826)</div>
+      <div class="meta">Learn • Grow • Shine | H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, Delhi (+91 9220357826)</div>
     </div>
     <div style="text-align:right; font-size:12px;">
       <div><strong>Worksheet #${resource.id}</strong></div>
@@ -157,7 +157,7 @@ export const WorksheetModal: React.FC<WorksheetModalProps> = ({
                   Aarohan Academy • आरोहण अकैडमी
                 </div>
                 <div className="text-xs text-slate-600">
-                  H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh, Delhi • +91 9220357826
+                  H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, Delhi • +91 9220357826
                 </div>
               </div>
             </div>

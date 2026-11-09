@@ -672,7 +672,7 @@ export const ResourcesAndSupportView: React.FC<ResourcesAndSupportViewProps> = (
             <div className="rounded-3xl bg-slate-50 border border-slate-200 p-6 sm:p-8 space-y-4">
               <h2 className="text-xl font-extrabold text-[#24476B]">
                 {lang === 'en'
-                  ? '3. Physical Classroom Safety at H.No. 54B, Gupta Park'
+                  ? '3. Physical Classroom Safety at H.No. 49B, Gupta Park'
                   : '3. कक्षा के भीतर भौतिक सुरक्षा मानक'}
               </h2>
               <ul className="space-y-2.5 text-sm sm:text-base">
@@ -721,8 +721,8 @@ export const ResourcesAndSupportView: React.FC<ResourcesAndSupportViewProps> = (
             </h1>
             <p className="text-base sm:text-lg text-slate-700 mt-4 leading-relaxed">
               {lang === 'en'
-                ? 'We welcome parents from Gupta Park, Todarmal Colony, and nearby areas of Najafgarh to visit H.No. 54B, meet the educator, inspect our learning materials, and discuss their child’s academic goals.'
-                : 'हम गुप्ता पार्क, टोडरमल कॉलोनी और नजफगढ़ के आसपास के अभिभावकों का स्वागत करते हैं कि वे मकान नं. 54B पर आकर शिक्षक से मिलें, हमारी अध्ययन सामग्री देखें और अपने बच्चे की पढ़ाई पर चर्चा करें।'}
+                ? 'We welcome parents from Gupta Park, Todarmal Colony, and nearby areas of Najafgarh to visit H.No. 49B, meet the educator, inspect our learning materials, and discuss their child’s academic goals.'
+                : 'हम गुप्ता पार्क, टोडरमल कॉलोनी और नजफगढ़ के आसपास के अभिभावकों का स्वागत करते हैं कि वे मकान नं. 49B पर आकर शिक्षक से मिलें, हमारी अध्ययन सामग्री देखें और अपने बच्चे की पढ़ाई पर चर्चा करें।'}
             </p>
           </div>
           <div className="lg:col-span-5 grid grid-cols-2 gap-4 items-center">

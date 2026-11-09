@@ -262,7 +262,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, lang }) => {
           {/* Bottom Bar */}
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300">
             <p>
-              © {new Date().getFullYear()} Aarohan Academy (H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh, Delhi).{' '}
+              © {new Date().getFullYear()} Aarohan Academy (H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, Delhi).{' '}
               {lang === 'en' ? 'All rights reserved.' : 'सर्वाधिकार सुरक्षित।'}
             </p>
             <div className="flex flex-wrap items-center gap-4">

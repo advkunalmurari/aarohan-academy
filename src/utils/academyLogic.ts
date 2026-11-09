@@ -66,9 +66,9 @@ export interface EnquiryValidationResult {
 export const ACADEMY_PHONE_RAW = '919220357826';
 export const ACADEMY_PHONE_DISPLAY = '+91 9220357826';
 export const ACADEMY_ADDRESS_EN =
-  'H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh, Delhi - 110043, India';
+  'H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, Delhi - 110043, India';
 export const ACADEMY_ADDRESS_HI =
-  'मकान नं. 54B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़, दिल्ली - 110043, भारत';
+  'मकान नं. 49B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़, दिल्ली - 110043, भारत';
 
 export const DEFAULT_WHATSAPP_MESSAGE =
   'Hello Aarohan Academy! I would like to know more about tuition classes for my child. Please share the programme and admission details.';
@@ -79,7 +79,7 @@ export function buildWhatsAppUrl(customMessage?: string): string {
 }
 
 export function buildGoogleMapsDirectionsUrl(): string {
-  const destination = 'H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh, New Delhi, Delhi 110043';
+  const destination = 'H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, New Delhi, Delhi 110043';
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
 }
 
@@ -199,7 +199,7 @@ export function getPageSeoMeta(
       en: {
         title: 'Aarohan Academy | Tuition Classes in Najafgarh (Nursery to Class 8)',
         description:
-          'Small-batch supplementary tuition for Nursery to Class 8 (CBSE curriculum support) at H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh, Delhi.',
+          'Small-batch supplementary tuition for Nursery to Class 8 (CBSE curriculum support) at H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, Delhi.',
       },
       hi: {
         title: 'आरोहण अकैडमी | नजफगढ़ में नर्सरी से कक्षा 8 तक व्यक्तिगत ट्यूशन',
@@ -365,14 +365,14 @@ export function getPageSeoMeta(
     },
     contact: {
       en: {
-        title: 'Contact Us | H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh',
+        title: 'Contact Us | H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh',
         description:
-          'Call or WhatsApp +91 9220357826 or visit Aarohan Academy at H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh, Delhi.',
+          'Call or WhatsApp +91 9220357826 or visit Aarohan Academy at H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, Delhi.',
       },
       hi: {
-        title: 'संपर्क करें | मकान नं. 54B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़',
+        title: 'संपर्क करें | मकान नं. 49B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़',
         description:
-          '+91 9220357826 पर कॉल या व्हाट्सऐप करें अथवा मकान नं. 54B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़, दिल्ली पर पधारें।',
+          '+91 9220357826 पर कॉल या व्हाट्सऐप करें अथवा मकान नं. 49B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़, दिल्ली पर पधारें।',
       },
     },
     privacy: {

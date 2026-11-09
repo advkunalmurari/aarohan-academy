@@ -1600,8 +1600,8 @@ export const FAQ_ITEMS: FaqItem[] = [
       hi: 'आरोहण अकैडमी कहाँ स्थित है?',
     },
     answer: {
-      en: 'We are located at H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh, Delhi - 110043. It is a safe, easily accessible residential neighbourhood location convenient for families in Gupta Park, Todarmal Colony, and nearby areas of Najafgarh.',
-      hi: 'हमारा केंद्र मकान नं. 54B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़, दिल्ली - 110043 में स्थित है। यह गुप्ता पार्क, टोडरमल कॉलोनी और आसपास के परिवारों के लिए एक सुरक्षित और सुगम स्थान है।',
+      en: 'We are located at H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, Delhi - 110043. It is a safe, easily accessible residential neighbourhood location convenient for families in Gupta Park, Todarmal Colony, and nearby areas of Najafgarh.',
+      hi: 'हमारा केंद्र मकान नं. 49B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़, दिल्ली - 110043 में स्थित है। यह गुप्ता पार्क, टोडरमल कॉलोनी और आसपास के परिवारों के लिए एक सुरक्षित और सुगम स्थान है।',
     },
   },
   {
@@ -1612,7 +1612,7 @@ export const FAQ_ITEMS: FaqItem[] = [
       hi: 'प्रवेश के लिए पूछताछ या प्रारंभिक मूल्यांकन (Learning Assessment) कैसे बुक करें?',
     },
     answer: {
-      en: 'You can call or WhatsApp us directly at +91 9220357826, or fill out the short Enquiry Form on our website. We will invite you and your child to visit H.No. 54B, Gupta Park for an informal interaction, basic skills check, and batch allocation.',
+      en: 'You can call or WhatsApp us directly at +91 9220357826, or fill out the short Enquiry Form on our website. We will invite you and your child to visit H.No. 49B, Gupta Park for an informal interaction, basic skills check, and batch allocation.',
       hi: 'आप हमें सीधे +91 9220357826 पर कॉल या व्हाट्सऐप कर सकते हैं, अथवा वेबसाइट पर दिया गया छोटा पूछताछ फॉर्म भर सकते हैं। इसके बाद आप बच्चे के साथ केंद्र पर आकर शिक्षक से मिल सकते हैं और उपयुक्त बैच चुन सकते हैं।',
     },
   },
@@ -1689,8 +1689,8 @@ export const VERIFIED_PARENT_TESTIMONIALS: ParentTestimonial[] = [
       hi: 'बैच छोटा और कॉलोनी के पास होने के कारण हमारी बेटी पहले ही सप्ताह में सहज हो गई। यहाँ पन्नों की नकल करवाने के बजाय पहले क्रेयॉन, मोती और ट्रेसिंग कार्ड से अभ्यास कराया गया जिससे उसकी लिखावट की पकड़ बहुत अच्छी हो गई है।',
     },
     verificationSource: {
-      en: 'Verified via Parent Feedback Register • H.No. 54B Centre',
-      hi: 'अभिभावक फीडबैक रजिस्टर द्वारा सत्यापित • केंद्र 54B',
+      en: 'Verified via Parent Feedback Register • H.No. 49B Centre',
+      hi: 'अभिभावक फीडबैक रजिस्टर द्वारा सत्यापित • केंद्र 49B',
     },
     verificationCode: 'AAR-PF-2602',
     status: 'verified',
@@ -1817,8 +1817,8 @@ export const VERIFIED_PARENT_TESTIMONIALS: ParentTestimonial[] = [
       hi: 'बड़े कोचिंग सेंटरों में 40 से अधिक छात्रों के बीच मेरा बेटा बीजगणित और क्षेत्रमिति की अपनी शंकाएँ नहीं पूछ पाता था। आरोहण में 15–20 छात्रों का छोटा बैच होने से कॉपी के हर चरण की जाँच होती है और अब वह कक्षा 9 के लिए पूरी तरह तैयार महसूस करता है।',
     },
     verificationSource: {
-      en: 'Verified via Parent Feedback Register • H.No. 54B Centre',
-      hi: 'अभिभावक फीडबैक रजिस्टर द्वारा सत्यापित • केंद्र 54B',
+      en: 'Verified via Parent Feedback Register • H.No. 49B Centre',
+      hi: 'अभिभावक फीडबैक रजिस्टर द्वारा सत्यापित • केंद्र 49B',
     },
     verificationCode: 'AAR-PF-2606',
     status: 'verified',

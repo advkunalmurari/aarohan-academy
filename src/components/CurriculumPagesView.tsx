@@ -96,8 +96,8 @@ export const CurriculumPagesView: React.FC<CurriculumPagesViewProps> = ({
               </h1>
               <p className="text-base sm:text-lg text-slate-700 mt-4 leading-relaxed">
                 {lang === 'en'
-                  ? 'Located at H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh, Aarohan Academy provides warm, structured supplementary tuition for children from Nursery to Class 8 studying in CBSE schools.'
-                  : 'मकान नं. 54B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़ में स्थित आरोहण अकैडमी नर्सरी से कक्षा 8 तक के बच्चों को शांत, सुरक्षित और अवधारणा-आधारित ट्यूशन सहयोग प्रदान करती है।'}
+                  ? 'Located at H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, Aarohan Academy provides warm, structured supplementary tuition for children from Nursery to Class 8 studying in CBSE schools.'
+                  : 'मकान नं. 49B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़ में स्थित आरोहण अकैडमी नर्सरी से कक्षा 8 तक के बच्चों को शांत, सुरक्षित और अवधारणा-आधारित ट्यूशन सहयोग प्रदान करती है।'}
               </p>
             </div>
             <div className="lg:col-span-5 grid grid-cols-2 gap-4 items-center">

@@ -316,8 +316,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   <MapPin className="w-4 h-4 text-[#F47B45] shrink-0" />
                   <span className="font-medium">
                     {lang === 'en'
-                      ? 'H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh'
-                      : 'मकान नं. 54B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़'}
+                      ? 'H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh'
+                      : 'मकान नं. 49B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़'}
                   </span>
                 </div>
                 <a
@@ -1794,8 +1794,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
               </h2>
               <p className="text-slate-200 text-sm sm:text-base leading-relaxed">
                 {lang === 'en'
-                  ? 'Visit H.No. 54B, Gupta Park, Todarmal Colony, Najafgarh, Delhi or reach us directly on Call / WhatsApp to schedule an informal 15-minute diagnostic check.'
-                  : 'मकान नं. 54B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़, दिल्ली पर पधारें या 15-मिनट के प्रारंभिक मूल्यांकन के लिए कॉल / व्हाट्सऐप करें।'}
+                  ? 'Visit H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, Delhi or reach us directly on Call / WhatsApp to schedule an informal 15-minute diagnostic check.'
+                  : 'मकान नं. 49B, गुप्ता पार्क, टोडरमल कॉलोनी, नजफगढ़, दिल्ली पर पधारें या 15-मिनट के प्रारंभिक मूल्यांकन के लिए कॉल / व्हाट्सऐप करें।'}
               </p>
             </div>
 
