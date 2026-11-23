@@ -16,7 +16,9 @@ export type PageId =
   | 'faqs'
   | 'admissions'
   | 'contact'
-  | 'privacy';
+  | 'privacy'
+  | 'enquiry'
+  | 'admin';
 
 export type DifficultyLevel = 'Start' | 'Build' | 'Challenge';
 
@@ -385,6 +387,30 @@ export function getPageSeoMeta(
         title: 'बाल सुरक्षा और गोपनीयता नीति | आरोहण अकैडमी नजफगढ़',
         description:
           'बच्चों की सुरक्षा, अभिभावकों की सहमति, न्यूनतम डेटा संग्रह और सुरक्षित कक्षा वातावरण के प्रति हमारी प्रतिबद्धता।',
+      },
+    },
+    enquiry: {
+      en: {
+        title: 'Enquiry & Booking | Schedule a Call or Visit | Aarohan Academy',
+        description:
+          'Schedule an academic counselling call, book a tuition centre visit at Gupta Park, Najafgarh, or enquire about courses for Nursery to Class 8.',
+      },
+      hi: {
+        title: 'पूछताछ और बुकिंग | कॉल या सेंटर विज़िट शेड्यूल करें | आरोहण अकैडमी',
+        description:
+          'नजफगढ़ में नर्सरी से कक्षा 8 तक के लिए शैक्षणिक परामर्श कॉल शेड्यूल करें या गुप्ता पार्क सेंटर विज़िट बुक करें।',
+      },
+    },
+    admin: {
+      en: {
+        title: 'Admin Portal & CRM | Aarohan Academy India',
+        description:
+          'Staff CRM portal for managing enquiries, calls, centre visits, and admission pipelines.',
+      },
+      hi: {
+        title: 'एडमिन पोर्टल और CRM | आरोहण अकैडमी',
+        description:
+          'पूछताछ, कॉल, सेंटर विज़िट और प्रवेश प्रबंधन के लिए स्टाफ CRM पोर्टल।',
       },
     },
   };

@@ -25,6 +25,12 @@ const ResourcesAndSupportView = React.lazy(() =>
 const WorksheetModal = React.lazy(() =>
   import('./components/WorksheetModal').then((m) => ({ default: m.WorksheetModal }))
 );
+const EnquiryBookingView = React.lazy(() =>
+  import('./components/EnquiryBookingView').then((m) => ({ default: m.EnquiryBookingView }))
+);
+const AdminPortal = React.lazy(() =>
+  import('./components/admin/AdminPortal').then((m) => ({ default: m.AdminPortal }))
+);
 
 const VALID_PAGES: PageId[] = [
   'home',
@@ -43,6 +49,8 @@ const VALID_PAGES: PageId[] = [
   'admissions',
   'contact',
   'privacy',
+  'enquiry',
+  'admin',
 ];
 
 function getInitialPage(): PageId {
@@ -91,6 +99,20 @@ export default function App() {
       window.history.pushState({}, '', url.toString());
     }
   };
+
+  if (currentPage === 'admin') {
+    return (
+      <React.Suspense
+        fallback={
+          <div className="min-h-screen flex items-center justify-center bg-slate-50">
+            <div className="w-8 h-8 border-4 border-[#24476B] border-t-transparent rounded-full animate-spin" />
+          </div>
+        }
+      >
+        <AdminPortal lang={lang} onNavigate={handleNavigate} />
+      </React.Suspense>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-slate-900">
@@ -147,6 +169,13 @@ export default function App() {
               onNavigate={handleNavigate}
               onOpenWorksheet={(res) => setSelectedWorksheet(res)}
               onOpenArticle={(art) => setSelectedArticle(art)}
+            />
+          )}
+
+          {currentPage === 'enquiry' && (
+            <EnquiryBookingView
+              lang={lang}
+              onNavigate={handleNavigate}
             />
           )}
 

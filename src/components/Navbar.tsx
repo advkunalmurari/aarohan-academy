@@ -331,6 +331,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             type="button"
+            onClick={() => handleNavClick('enquiry')}
+            className={`px-3 py-2 rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+              currentPage === 'enquiry'
+                ? 'text-[#24476B] bg-[#36A9E1]/10 font-bold'
+                : 'hover:text-[#24476B] hover:bg-slate-100'
+            }`}
+          >
+            {lang === 'en' ? 'Book a Call / Visit' : 'कॉल / विज़िट बुक करें'}
+          </button>
+
+          <button
+            type="button"
             onClick={() => handleNavClick('contact')}
             className={`px-3 py-2 rounded-lg transition-colors whitespace-nowrap shrink-0 ${
               currentPage === 'contact' || currentPage === 'admissions'
@@ -379,7 +391,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Prominent Enquire Now Button */}
           <button
             type="button"
-            onClick={() => handleNavClick('admissions')}
+            onClick={() => handleNavClick('enquiry')}
             className="hidden sm:inline-flex items-center justify-center px-4 py-2.5 text-sm font-bold text-white bg-[#F47B45] hover:bg-[#e06631] rounded-xl shadow-xs transition-colors whitespace-nowrap shrink-0 cursor-pointer"
           >
             {lang === 'en' ? 'Enquire Now' : 'प्रवेश पूछताछ'}
@@ -401,6 +413,14 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-4 max-h-[82vh] overflow-y-auto shadow-xl">
+          <button
+            type="button"
+            onClick={() => handleNavClick('enquiry')}
+            className="w-full py-3 px-4 rounded-xl bg-[#F47B45] hover:bg-[#e06631] text-white font-extrabold text-sm shadow-md flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <span>📞 🏫 {lang === 'en' ? 'Book a Call or Centre Visit' : 'कॉल या सेंटर विज़िट बुक करें'}</span>
+          </button>
+
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"

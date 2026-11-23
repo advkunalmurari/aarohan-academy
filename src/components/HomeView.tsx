@@ -219,14 +219,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
                 <button
                   type="button"
-                  onClick={() => goToPage('admissions')}
+                  onClick={() => goToPage('enquiry')}
                   className="inline-flex items-center justify-center gap-2.5 bg-[#24476B] hover:bg-[#1b3652] text-white font-bold px-7 py-4 rounded-2xl shadow-lg shadow-[#24476B]/15 transition-all cursor-pointer text-base"
                 >
                   <Calendar className="w-5 h-5 text-[#FFC845]" />
                   <span>
                     {lang === 'en'
-                      ? 'Book a Learning Assessment'
-                      : 'प्रारंभिक मूल्यांकन बुक करें'}
+                      ? 'Schedule a Call / Book Visit'
+                      : 'कॉल / सेंटर विज़िट बुक करें'}
                   </span>
                   <ArrowRight className="w-4 h-4" />
                 </button>

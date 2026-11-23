@@ -268,10 +268,18 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, lang }) => {
             <div className="flex flex-wrap items-center gap-4">
               <button
                 type="button"
+                onClick={() => handleLink('enquiry')}
+                className="text-[#FFC845] hover:underline font-bold transition-colors cursor-pointer"
+              >
+                {lang === 'en' ? 'Book a Call / Visit' : 'कॉल / विज़िट बुक करें'}
+              </button>
+              <span aria-hidden="true">·</span>
+              <button
+                type="button"
                 onClick={() => handleLink('admissions')}
                 className="hover:text-white transition-colors cursor-pointer"
               >
-                {lang === 'en' ? 'Admissions & Enquiry' : 'प्रवेश पूछताछ'}
+                {lang === 'en' ? 'Admissions' : 'प्रवेश पूछताछ'}
               </button>
               <span aria-hidden="true">·</span>
               <button
@@ -279,7 +287,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, lang }) => {
                 onClick={() => handleLink('privacy')}
                 className="hover:text-white transition-colors cursor-pointer"
               >
-                {lang === 'en' ? 'Privacy & Child Safety Policy' : 'गोपनीयता और बाल सुरक्षा नीति'}
+                {lang === 'en' ? 'Privacy Policy' : 'गोपनीयता नीति'}
+              </button>
+              <span aria-hidden="true">·</span>
+              <button
+                type="button"
+                onClick={() => handleLink('admin')}
+                className="text-slate-400 hover:text-white transition-colors cursor-pointer"
+              >
+                Staff Portal
               </button>
               <span aria-hidden="true">·</span>
               <a
