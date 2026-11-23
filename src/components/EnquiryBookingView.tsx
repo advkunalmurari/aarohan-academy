@@ -31,6 +31,7 @@ import {
   checkSlotAvailability,
 } from '../services/enquiryService';
 import { captureLeadAttribution } from '../utils/utmTracker';
+import { trackEnquirySubmission, trackAppointmentBooking, trackWhatsAppClick } from '../utils/analytics';
 import { Language, PageId } from '../utils/academyLogic';
 
 interface EnquiryBookingViewProps {
@@ -203,6 +204,22 @@ export const EnquiryBookingView: React.FC<EnquiryBookingViewProps> = ({
       });
 
       setSubmittedData({ id: newRecord.id, type: enquiryType });
+
+      trackEnquirySubmission({
+        enquiryId: newRecord.id,
+        enquiryType,
+        studentClass,
+        leadSource: newRecord.lead_source,
+      });
+
+      if ((enquiryType === 'schedule_call' || enquiryType === 'book_visit') && bookingDate && selectedSlot) {
+        trackAppointmentBooking({
+          enquiryId: newRecord.id,
+          type: enquiryType === 'schedule_call' ? 'call' : 'visit',
+          date: bookingDate,
+          slot: selectedSlot,
+        });
+      }
     } catch (err: any) {
       console.error('Error submitting enquiry:', err);
       setErrorMsg(err.message || 'Failed to submit enquiry. Please try again.');

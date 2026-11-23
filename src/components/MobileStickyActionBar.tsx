@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, Calendar, MessageCircle, Sparkles, X } from 'lucide-react';
 import { Language, PageId, buildWhatsAppUrl, ACADEMY_PHONE_DISPLAY } from '../utils/academyLogic';
+import { trackCallClick, trackWhatsAppClick } from '../utils/analytics';
 
 interface MobileStickyActionBarProps {
   lang: Language;
@@ -47,6 +48,7 @@ export const MobileStickyActionBar: React.FC<MobileStickyActionBarProps> = ({
         {/* Call Action */}
         <a
           href="tel:+919220357826"
+          onClick={() => trackCallClick('mobile_sticky_bar')}
           className="flex-1 py-2.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#24476B] font-bold text-xs flex flex-col items-center justify-center gap-0.5 active:scale-95 transition-all text-center"
         >
           <Phone className="w-4 h-4 text-[#36A9E1]" />
@@ -76,6 +78,7 @@ export const MobileStickyActionBar: React.FC<MobileStickyActionBarProps> = ({
           href={buildWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackWhatsAppClick('mobile_sticky_bar')}
           className="flex-1 py-2.5 px-2 rounded-xl bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold text-xs flex flex-col items-center justify-center gap-0.5 shadow-xs active:scale-95 transition-all text-center"
         >
           <MessageCircle className="w-4 h-4" />

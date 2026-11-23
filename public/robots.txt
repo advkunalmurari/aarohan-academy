@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /*?page=admin*
 
 Sitemap: https://aarohanacademyindia.vercel.app/sitemap.xml

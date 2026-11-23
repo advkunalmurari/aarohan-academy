@@ -78,41 +78,124 @@
       />
     </noscript>
 
-    <!-- Schema.org LocalBusiness / EducationalOrganization JSON-LD -->
+    <!-- Comprehensive Schema.org Structured Data Graph -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": ["EducationalOrganization", "LocalBusiness"],
-        "name": "Aarohan Academy",
-        "alternateName": "आरोहण अकैडमी",
-        "slogan": "Learn • Grow • Shine | सीखें • बढ़ें • चमकें",
-        "description": "Neighbourhood supplementary learning and tuition centre for Nursery to Class 8 (CBSE curriculum support) in Gupta Park, Todarmal Colony, Najafgarh, Delhi.",
-        "url": "https://www.aarohanacademy.in",
-        "logo": "/assets/aistudio/Logo_6217babd.png",
-        "image": "/assets/aistudio/images__1__6c7a0e55.jpeg",
-        "telephone": "+91-9220357826",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "H.No. 49B, Gupta Park, Todarmal Colony",
-          "addressLocality": "Najafgarh",
-          "addressRegion": "Delhi",
-          "postalCode": "110043",
-          "addressCountry": "IN"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": "28.6092",
-          "longitude": "76.9798"
-        },
-        "areaServed": [
-          "Gupta Park",
-          "Todarmal Colony",
-          "Najafgarh",
-          "Roshanpura",
-          "Prem Nagar",
-          "Delhi"
-        ],
-        "openingHours": "Mo-Sa 15:00-19:30"
+        "@graph": [
+          {
+            "@type": ["EducationalOrganization", "LocalBusiness"],
+            "@id": "https://aarohanacademyindia.vercel.app/#organization",
+            "name": "Aarohan Academy",
+            "alternateName": "आरोहण अकैडमी",
+            "slogan": "Learn • Grow • Shine | सीखें • बढ़ें • चमकें",
+            "description": "Premium small-batch tuition and foundational learning-support centre for Nursery to Class 8 (CBSE curriculum support) at Gupta Park, Todarmal Colony, Najafgarh, Delhi.",
+            "url": "https://aarohanacademyindia.vercel.app/",
+            "logo": "https://aarohanacademyindia.vercel.app/assets/aistudio/Logo_6217babd.png",
+            "image": "https://aarohanacademyindia.vercel.app/assets/aarohan_students_learning.jpg",
+            "telephone": "+91-9220357826",
+            "priceRange": "₹₹",
+            "currenciesAccepted": "INR",
+            "paymentAccepted": "Cash, UPI, Net Banking",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "H.No. 49B, Gupta Park, Todarmal Colony",
+              "addressLocality": "Najafgarh",
+              "addressRegion": "Delhi",
+              "postalCode": "110043",
+              "addressCountry": "IN"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "28.6092",
+              "longitude": "76.9798"
+            },
+            "areaServed": [
+              { "@type": "AdministrativeArea", "name": "Gupta Park" },
+              { "@type": "AdministrativeArea", "name": "Todarmal Colony" },
+              { "@type": "AdministrativeArea", "name": "Najafgarh" },
+              { "@type": "AdministrativeArea", "name": "Roshanpura" },
+              { "@type": "AdministrativeArea", "name": "Prem Nagar" },
+              { "@type": "AdministrativeArea", "name": "Dichaon Kalan" },
+              { "@type": "AdministrativeArea", "name": "Delhi" }
+            ],
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                "opens": "15:00",
+                "closes": "19:30"
+              }
+            ],
+            "knowsAbout": [
+              "CBSE Curriculum Support",
+              "Nursery to Class 8 Tuition",
+              "Primary School Mathematics",
+              "Middle School Science",
+              "English Phonics and Reading Fluency",
+              "Concept-Based Learning"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://aarohanacademyindia.vercel.app/#website",
+            "url": "https://aarohanacademyindia.vercel.app/",
+            "name": "Aarohan Academy India",
+            "publisher": { "@id": "https://aarohanacademyindia.vercel.app/#organization" }
+          },
+          {
+            "@type": "Course",
+            "name": "Primary Concept Mastery Tuition (Classes 1 to 5)",
+            "description": "Small-batch (15–20 students) foundational tuition in Mathematics, EVS/Science, and English reading with daily guided notebook practice.",
+            "provider": { "@id": "https://aarohanacademyindia.vercel.app/#organization" },
+            "educationalLevel": "Primary Education"
+          },
+          {
+            "@type": "Course",
+            "name": "Middle School CBSE Foundation Tuition (Classes 6 to 8)",
+            "description": "Structured CBSE tuition in Mathematics and Science focusing on conceptual reasoning, formula derivations, and step-by-step problem solving.",
+            "provider": { "@id": "https://aarohanacademyindia.vercel.app/#organization" },
+            "educationalLevel": "Middle School"
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://aarohanacademyindia.vercel.app/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Which classes are covered at Aarohan Academy in Najafgarh?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Aarohan Academy provides structured small-batch tuition for students from Nursery to Class 8 across three developmental stages: Aarambh (Nursery–UKG), Aadhar (Classes 1–5), and Aagey (Classes 6–8)."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the batch size at Aarohan Academy?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Every batch is strictly capped at 15 to 20 students. This guarantees that every child receives individualized attention, active doubt solving, and daily teacher notebook checks."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Where is Aarohan Academy located?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The academy is located at H.No. 49B, Gupta Park, Todarmal Colony, Najafgarh, New Delhi - 110043 (near Gupta Park and Todarmal Colony landmarks)."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How can parents book a visit or diagnostic assessment?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Parents can schedule a free 1-on-1 academic counselling call or book an in-person centre visit through our online booking system or by calling/WhatsApping +91 9220357826."
+                }
+              }
+            ]
+          }
+        ]
       }
     </script>
   </head>

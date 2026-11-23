@@ -85,7 +85,24 @@ export default function App() {
     if (descEl) {
       descEl.setAttribute('content', meta.description);
     }
+    const canonicalEl = document.querySelector('link[rel="canonical"]');
+    if (canonicalEl) {
+      const canonicalUrl =
+        currentPage === 'home'
+          ? 'https://aarohanacademyindia.vercel.app/'
+          : `https://aarohanacademyindia.vercel.app/?page=${currentPage}`;
+      canonicalEl.setAttribute('href', canonicalUrl);
+    }
     document.documentElement.lang = lang;
+
+    if (typeof window !== 'undefined' && window.dataLayer) {
+      window.dataLayer.push({
+        event: 'page_view',
+        page_path: currentPage === 'home' ? '/' : `/?page=${currentPage}`,
+        page_title: meta.title,
+        language: lang,
+      });
+    }
   }, [currentPage, lang]);
 
   const handleNavigate = (page: PageId) => {
