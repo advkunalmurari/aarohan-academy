@@ -15,6 +15,7 @@ import { ArticleItem } from './data/academyData';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { HomeView } from './components/HomeView';
+import { MobileStickyActionBar } from './components/MobileStickyActionBar';
 
 const CurriculumPagesView = React.lazy(() =>
   import('./components/CurriculumPagesView').then((m) => ({ default: m.CurriculumPagesView }))
@@ -189,6 +190,7 @@ export default function App() {
         </React.Suspense>
       </main>
 
+      <MobileStickyActionBar lang={lang} onNavigate={handleNavigate} />
       <Footer onNavigate={handleNavigate} lang={lang} />
 
       {/* Parent Corner Quick Article Reader Modal */}

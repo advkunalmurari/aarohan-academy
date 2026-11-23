@@ -41,6 +41,7 @@ import { LIBRARY_RESOURCES } from '../data/libraryResourcesData';
 import { GrowthReportPreview } from './GrowthReportPreview';
 import { EnquiryFormSection } from './EnquiryFormSection';
 import { EnquiryBookingView } from './EnquiryBookingView';
+import { TuitionComparisonSection } from './TuitionComparisonSection';
 import { ParentTestimonialsSection } from './ParentTestimonialsSection';
 import {
   HeroCreativeBackdrop,
@@ -167,20 +168,20 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Copy Column (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
-              {/* Unboxed editorial metadata line */}
-              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs sm:text-sm font-bold tracking-wide text-[#24476B]">
-                <span className="text-[#F47B45] uppercase tracking-wider">
-                  {lang === 'en' ? 'Najafgarh, Delhi' : 'नजफगढ़, दिल्ली'}
+              {/* Eye-Catching Animated Admissions & Urgency Badge */}
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/90 text-emerald-900 text-xs font-bold shadow-xs">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
                 </span>
-                <span className="text-slate-300">·</span>
                 <span>
                   {lang === 'en'
-                    ? 'Nursery to Class 8 (CBSE Curriculum Support)'
-                    : 'नर्सरी से कक्षा 8 (CBSE पाठ्यक्रम सहयोग)'}
+                    ? 'Admissions Open 2026–27 • Capped at 15–20 Per Batch'
+                    : 'प्रवेश प्रारंभ 2026–27 • प्रति बैच केवल 15–20 सीमित सीटें'}
                 </span>
-                <span className="text-slate-300">·</span>
-                <span className="text-[#4CAF80]">
-                  {lang === 'en' ? 'Learn • Grow • Shine' : 'सीखें • बढ़ें • चमकें'}
+                <span className="text-emerald-300 hidden sm:inline">|</span>
+                <span className="text-emerald-700 hidden sm:inline font-semibold">
+                  Gupta Park, Najafgarh
                 </span>
               </div>
 
@@ -360,8 +361,23 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.2 }}
-                  className="relative z-10 rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-white"
+                  className="relative z-10 rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-white ring-4 ring-[#FFC845]/30"
                 >
+                  {/* Floating Micro Badge 1: 15-20 Batch Limit */}
+                  <div className="absolute top-3.5 right-3.5 z-20 animate-badge-bob pointer-events-none">
+                    <div className="bg-[#24476B]/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg border border-white/20 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-[#FFC845] animate-ping" />
+                      <span>15–20 Batch Cap</span>
+                    </div>
+                  </div>
+
+                  {/* Floating Micro Badge 2: Parent Trust Rating */}
+                  <div className="absolute bottom-24 left-3.5 z-20 animate-float-slow pointer-events-none">
+                    <div className="bg-white/95 backdrop-blur-md text-[#24476B] px-3 py-1.5 rounded-full text-xs font-extrabold shadow-lg border border-amber-200 flex items-center gap-1.5">
+                      <span>⭐ 4.9/5 Parent Trust</span>
+                    </div>
+                  </div>
+
                   <img
                     src={BRAND_ASSETS.happyChildrenTeacher}
                     alt={
@@ -484,6 +500,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
           </div>
         </div>
       </section>
+
+      {/* =====================================================================
+          INTERACTIVE ANIMATED COMPARISON: CROWDED TUITIONS VS AAROHAN
+      ===================================================================== */}
+      <TuitionComparisonSection lang={lang} onNavigate={goToPage} />
 
       {/* =====================================================================
           SECTION 3: DISCOVER OUR LEARNING PROGRAMMES
