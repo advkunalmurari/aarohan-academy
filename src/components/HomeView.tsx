@@ -40,6 +40,7 @@ import {
 import { LIBRARY_RESOURCES } from '../data/libraryResourcesData';
 import { GrowthReportPreview } from './GrowthReportPreview';
 import { EnquiryFormSection } from './EnquiryFormSection';
+import { EnquiryBookingView } from './EnquiryBookingView';
 import { ParentTestimonialsSection } from './ParentTestimonialsSection';
 import {
   HeroCreativeBackdrop,
@@ -219,7 +220,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
                 <button
                   type="button"
-                  onClick={() => goToPage('enquiry')}
+                  onClick={() => {
+                    const el = document.getElementById('booking-form');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      goToPage('enquiry');
+                    }
+                  }}
                   className="inline-flex items-center justify-center gap-2.5 bg-[#24476B] hover:bg-[#1b3652] text-white font-bold px-7 py-4 rounded-2xl shadow-lg shadow-[#24476B]/15 transition-all cursor-pointer text-base"
                 >
                   <Calendar className="w-5 h-5 text-[#FFC845]" />
@@ -1835,8 +1843,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </div>
           </div>
 
-          {/* Embedded Validated Enquiry Form */}
-          <EnquiryFormSection lang={lang} />
+          {/* Embedded Full Enquiry & Booking System */}
+          <div id="booking-form" className="scroll-mt-24">
+            <EnquiryBookingView lang={lang} onNavigate={goToPage} />
+          </div>
         </div>
       </section>
     </div>
