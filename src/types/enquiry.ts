@@ -1,13 +1,16 @@
 /**
  * Type definitions for Aarohan Academy India
- * Enquiry, Call Scheduling & Tuition Visit Booking System
+ * Complete Lead Management & CRM System
  */
 
 export type EnquiryType =
   | 'schedule_call'
   | 'book_visit'
   | 'course_enquiry'
-  | 'general_enquiry';
+  | 'general_enquiry'
+  | 'walk_in'
+  | 'phone_inquiry'
+  | 'whatsapp_inquiry';
 
 export type AcademicBoard = 'CBSE' | 'ICSE' | 'State Board' | 'Other';
 
@@ -24,75 +27,132 @@ export type AcademicGoal =
 export type CallPreference = 'Phone Call' | 'WhatsApp Call';
 
 export type LeadSource =
+  | 'Website'
+  | 'Google'
   | 'Google Ads'
   | 'Google Organic'
   | 'Google Business Profile'
-  | 'Website'
+  | 'WhatsApp'
+  | 'Phone Call'
+  | 'Walk-in'
+  | 'Referral'
   | 'Instagram'
   | 'Facebook'
-  | 'WhatsApp'
-  | 'Referral'
+  | 'Advertisement'
+  | 'Existing Student'
   | 'Direct'
   | 'Other';
 
 export type LeadStatus =
   | 'New'
+  | 'Contact Pending'
   | 'Contacted'
+  | 'Interested'
   | 'Follow-up Required'
-  | 'Counselling Done'
   | 'Visit Scheduled'
-  | 'Admission in Progress'
-  | 'Converted'
+  | 'Visit Completed'
+  | 'Admission Converted'
   | 'Not Interested'
-  | 'Not Reachable'
   | 'Lost'
-  | 'Duplicate';
+  | 'Invalid Lead';
+
+export type CallOutcome =
+  | 'Attempted'
+  | 'Connected'
+  | 'No Answer'
+  | 'Busy'
+  | 'Wrong Number'
+  | 'Callback Requested'
+  | 'Interested'
+  | 'Not Interested'
+  | 'Follow-up Required';
 
 export type PriorityLevel = 'High' | 'Medium' | 'Low';
 
-export type AdminRole = 'Super Admin' | 'Counsellor' | 'Branch Admin';
+export type AdminRole = 'Super Admin' | 'Admin' | 'Counsellor' | 'Staff' | 'Management';
 
 export interface ActivityLog {
   id: string;
   timestamp: string;
-  type: 'status_change' | 'note' | 'call' | 'visit' | 'assigned' | 'created';
+  type: 'status_change' | 'note' | 'call' | 'visit' | 'assigned' | 'created' | 'admission';
   title: string;
   description: string;
   performedBy: string;
+  metadata?: Record<string, any>;
+}
+
+export interface CallLogRecord {
+  id: string;
+  timestamp: string;
+  staffName: string;
+  outcome: CallOutcome;
+  duration?: string;
+  remarks: string;
+  nextFollowupDate?: string;
+}
+
+export interface VisitCompletionRecord {
+  visitDate: string;
+  visitTime: string;
+  whoVisited: 'Parent Only' | 'Student Only' | 'Parent & Student';
+  parentName: string;
+  studentName: string;
+  handledBy: string;
+  requirementsDiscussed: string;
+  programmeInterested: string;
+  feeDiscussed?: number;
+  interestLevel: 'High' | 'Moderate' | 'Low';
+  nextAction: string;
+  remarks: string;
+}
+
+export interface AdmissionConversionRecord {
+  admissionDate: string;
+  studentName: string;
+  studentClass: string;
+  programme: string;
+  subjects: string[];
+  batchTiming: string;
+  monthlyFee: number;
+  paymentStatus: 'Paid' | 'Pending' | 'Installment';
+  counsellor: string;
+  remarks: string;
 }
 
 export interface EnquiryRecord {
-  id: string;
+  id: string; // Unique Lead ID (e.g. AA-2026-1042)
   created_at: string;
   enquiry_type: EnquiryType;
   
-  // Parent Details
+  // Student & Parent Information
+  student_name: string;
   parent_name: string;
   mobile: string;
-  whatsapp: string;
-  email: string;
-  
-  // Student Details
-  student_name: string;
+  alternate_mobile?: string;
+  whatsapp?: string;
+  email?: string;
   student_class: string;
-  school_name: string;
-  academic_board: AcademicBoard;
+  school_name?: string;
+  academic_board?: AcademicBoard;
   preferred_branch: string;
   
-  // Academic Requirements
+  // Requirements
   subjects: string[];
   mode: StudyMode;
-  preferred_batch_timing: string;
-  academic_goal: AcademicGoal;
+  preferred_batch_timing?: string;
+  academic_goal?: AcademicGoal;
+  tuition_requirement?: string;
+  specific_requirement?: string;
   
   // Booking Details (For Call & Visit)
   booking_date?: string; // YYYY-MM-DD
-  booking_time_slot?: string; // e.g. "10:30 AM"
+  booking_time_slot?: string;
   call_preference?: CallPreference;
   visitors_count?: number;
-  specific_requirement?: string;
+  visit_status?: 'Scheduled' | 'Completed' | 'Cancelled' | 'No-Show' | 'Rescheduled';
+  visit_details?: VisitCompletionRecord;
   
-  // Lead Attribution & Google Tracking
+  // Lead Attribution
   lead_source: LeadSource;
   utm_source?: string;
   utm_medium?: string;
@@ -102,18 +162,30 @@ export interface EnquiryRecord {
   referrer_url?: string;
   landing_page?: string;
   
-  // CRM Workflow
+  // CRM Workflow & Lifecycle
   status: LeadStatus;
+  priority: PriorityLevel;
   assigned_to: string;
   remarks: string;
   next_followup_date?: string;
-  priority: PriorityLevel;
+  next_followup_time?: string;
+  next_followup_action?: string;
   
-  // Duplicate Detection
+  // Call History
+  call_history?: CallLogRecord[];
+  
+  // Admission Conversion Record
+  conversion_details?: AdmissionConversionRecord;
+  is_converted?: boolean;
+  converted_at?: string;
+  
+  // Duplicate Tracking
   is_duplicate?: boolean;
   duplicate_of_id?: string;
   
-  // Timeline
+  // Timeline Audit
+  created_by?: string;
+  last_updated?: string;
   timeline: ActivityLog[];
 }
 
@@ -128,11 +200,16 @@ export interface AdminUser {
 export interface DashboardMetrics {
   totalEnquiries: number;
   newEnquiries: number;
-  todayEnquiries: number;
-  callsScheduled: number;
+  callsPending: number;
+  callsCompleted: number;
+  followupsDueToday: number;
+  followupsOverdue: number;
+  interestedLeads: number;
   visitsScheduled: number;
-  pendingFollowups: number;
-  convertedLeads: number;
+  visitsCompleted: number;
+  noShows: number;
+  admissionsConverted: number;
   lostLeads: number;
   conversionRate: number;
+  pendingEnquiries: number;
 }

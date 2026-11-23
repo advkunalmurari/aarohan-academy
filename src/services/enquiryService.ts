@@ -1,217 +1,47 @@
 import {
   EnquiryRecord,
   DashboardMetrics,
-  LeadStatus,
   ActivityLog,
+  CallOutcome,
+  VisitCompletionRecord,
+  AdmissionConversionRecord,
+  LeadStatus,
 } from '../types/enquiry';
-import { supabase } from '../utils/supabase';
+import { supabase } from '../utils/supabase/client';
 
-const STORAGE_KEY = 'aarohan_enquiries_v1';
+const STORAGE_KEY = 'aarohan_enquiries_cache';
 
-// Available hourly/half-hourly booking slots
-export const TIME_SLOTS = [
-  '03:00 PM',
-  '03:30 PM',
-  '04:00 PM',
-  '04:30 PM',
-  '05:00 PM',
-  '05:30 PM',
-  '06:00 PM',
-  '06:30 PM',
-  '07:00 PM',
+// Known dummy IDs from initial template to be purged from any client browser cache
+const LEGACY_DUMMY_IDS = new Set(['AA-2026-001', 'AA-2026-002', 'AA-2026-003', 'AA-2026-004']);
+
+export const COUNSELLORS = [
+  'Pooja Sharma',
+  'Amit Verma',
+  'Kunal Murari',
+  'Sunita Deswal',
 ];
 
 export const BRANCHES = [
   'Najafgarh Main (Gupta Park, Todarmal Colony)',
-  'Najafgarh Extension (Roshanpura)',
-  'Online Live Interactive Campus',
+  'Roshanpura / Thana Road (Extension)',
+  'Prem Nagar (Counselling Desk)',
 ];
 
-export const COUNSELLORS = [
-  { id: 'c1', name: 'Pooja Sharma', role: 'Head Academic Counsellor' },
-  { id: 'c2', name: 'Kunal Murari', role: 'Academy Director' },
-  { id: 'c3', name: 'Amit Verma', role: 'Senior Admissions Lead' },
-];
-
-// Realistic seed data so Admin Portal has rich reporting immediately
-const SEED_DATA: EnquiryRecord[] = [
-  {
-    id: 'AA-2026-001',
-    created_at: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
-    enquiry_type: 'book_visit',
-    parent_name: 'Rajesh Sharma',
-    mobile: '+91 98112 34567',
-    whatsapp: '+91 98112 34567',
-    email: 'rajesh.sharma@example.com',
-    student_name: 'Aarav Sharma',
-    student_class: 'Class 6',
-    school_name: 'Holy Cross School, Najafgarh',
-    academic_board: 'CBSE',
-    preferred_branch: 'Najafgarh Main (Gupta Park, Todarmal Colony)',
-    subjects: ['Mathematics', 'Science'],
-    mode: 'Offline',
-    preferred_batch_timing: '4:30 PM - 6:00 PM',
-    academic_goal: 'Foundation',
-    booking_date: new Date(Date.now() + 86400 * 1000).toISOString().split('T')[0],
-    booking_time_slot: '04:30 PM',
-    visitors_count: 2,
-    specific_requirement: 'Interested in small batch size (15 students) and regular weekly tests.',
-    lead_source: 'Google Ads',
-    utm_source: 'google',
-    utm_medium: 'cpc',
-    utm_campaign: 'najafgarh_tuition_search',
-    status: 'Visit Scheduled',
-    assigned_to: 'Pooja Sharma',
-    remarks: 'Father wants to inspect classrooms and meet maths faculty.',
-    next_followup_date: new Date(Date.now() + 86400 * 1000).toISOString().split('T')[0],
-    priority: 'High',
-    timeline: [
-      {
-        id: 't-1',
-        timestamp: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
-        type: 'created',
-        title: 'Centre Visit Booked via Google Ads',
-        description: 'Selected slot: Tomorrow at 04:30 PM for Aarav (Class 6).',
-        performedBy: 'System',
-      },
-      {
-        id: 't-2',
-        timestamp: new Date(Date.now() - 1 * 3600 * 1000).toISOString(),
-        type: 'assigned',
-        title: 'Assigned to Pooja Sharma',
-        description: 'Auto-assigned based on Najafgarh Main branch load.',
-        performedBy: 'System',
-      },
-    ],
-  },
-  {
-    id: 'AA-2026-002',
-    created_at: new Date(Date.now() - 5 * 3600 * 1000).toISOString(),
-    enquiry_type: 'schedule_call',
-    parent_name: 'Sunita Verma',
-    mobile: '+91 98711 88990',
-    whatsapp: '+91 98711 88990',
-    email: 'sunita.v@example.com',
-    student_name: 'Diya Verma',
-    student_class: 'Class 4',
-    school_name: 'Kendriya Vidyalaya, Najafgarh',
-    academic_board: 'CBSE',
-    preferred_branch: 'Najafgarh Main (Gupta Park, Todarmal Colony)',
-    subjects: ['English', 'Mathematics', 'EVS / Science'],
-    mode: 'Offline',
-    preferred_batch_timing: '3:00 PM - 4:30 PM',
-    academic_goal: 'Regular Tuition',
-    booking_date: new Date().toISOString().split('T')[0],
-    booking_time_slot: '05:30 PM',
-    call_preference: 'WhatsApp Call',
-    specific_requirement: 'Child needs confidence building in mental maths and English reading fluency.',
-    lead_source: 'Google Business Profile',
-    status: 'New',
-    assigned_to: 'Amit Verma',
-    remarks: 'Call scheduled for today evening.',
-    next_followup_date: new Date().toISOString().split('T')[0],
-    priority: 'High',
-    timeline: [
-      {
-        id: 't-3',
-        timestamp: new Date(Date.now() - 5 * 3600 * 1000).toISOString(),
-        type: 'created',
-        title: 'WhatsApp Call Scheduled',
-        description: 'Parent requested consultation today at 05:30 PM.',
-        performedBy: 'System',
-      },
-    ],
-  },
-  {
-    id: 'AA-2026-003',
-    created_at: new Date(Date.now() - 24 * 3600 * 1000).toISOString(),
-    enquiry_type: 'course_enquiry',
-    parent_name: 'Manish Rawat',
-    mobile: '+91 99990 12345',
-    whatsapp: '+91 99990 12345',
-    email: 'm.rawat@example.com',
-    student_name: 'Kabir Rawat',
-    student_class: 'Class 8',
-    school_name: 'Rao Mohar Singh Memorial School',
-    academic_board: 'CBSE',
-    preferred_branch: 'Najafgarh Main (Gupta Park, Todarmal Colony)',
-    subjects: ['Mathematics', 'Science'],
-    mode: 'Offline',
-    preferred_batch_timing: '6:00 PM - 7:30 PM',
-    academic_goal: 'Exam Preparation',
-    lead_source: 'Google Organic',
-    status: 'Counselling Done',
-    assigned_to: 'Pooja Sharma',
-    remarks: 'Counselling call completed. Child evaluated in baseline assessment. Parents visiting Saturday.',
-    next_followup_date: new Date(Date.now() + 2 * 86400 * 1000).toISOString().split('T')[0],
-    priority: 'Medium',
-    timeline: [
-      {
-        id: 't-4',
-        timestamp: new Date(Date.now() - 24 * 3600 * 1000).toISOString(),
-        type: 'created',
-        title: 'Course Enquiry Submitted',
-        description: 'Enquired about Class 8 Maths & Science exam prep.',
-        performedBy: 'System',
-      },
-      {
-        id: 't-5',
-        timestamp: new Date(Date.now() - 12 * 3600 * 1000).toISOString(),
-        type: 'status_change',
-        title: 'Status changed to Counselling Done',
-        description: 'Discussed batch timings and fee structure. Positive interest.',
-        performedBy: 'Pooja Sharma',
-      },
-    ],
-  },
-  {
-    id: 'AA-2026-004',
-    created_at: new Date(Date.now() - 48 * 3600 * 1000).toISOString(),
-    enquiry_type: 'book_visit',
-    parent_name: 'Priyanka Goyal',
-    mobile: '+91 98102 77665',
-    whatsapp: '+91 98102 77665',
-    email: 'priyanka.goyal@example.com',
-    student_name: 'Ananya Goyal',
-    student_class: 'Class 2',
-    school_name: 'Delhi Public School, Dwarka',
-    academic_board: 'CBSE',
-    preferred_branch: 'Najafgarh Main (Gupta Park, Todarmal Colony)',
-    subjects: ['Foundational Literacy & Numeracy'],
-    mode: 'Offline',
-    preferred_batch_timing: '3:00 PM - 4:30 PM',
-    academic_goal: 'Foundation',
-    booking_date: new Date(Date.now() - 24 * 3600 * 1000).toISOString().split('T')[0],
-    booking_time_slot: '04:00 PM',
-    visitors_count: 2,
-    lead_source: 'Referral',
-    status: 'Converted',
-    assigned_to: 'Kunal Murari',
-    remarks: 'Admission confirmed for Primary Stage batch. Registration completed.',
-    priority: 'High',
-    timeline: [
-      {
-        id: 't-6',
-        timestamp: new Date(Date.now() - 48 * 3600 * 1000).toISOString(),
-        type: 'created',
-        title: 'Visit Booked',
-        description: 'Parent booked visit through neighbour referral.',
-        performedBy: 'System',
-      },
-      {
-        id: 't-7',
-        timestamp: new Date(Date.now() - 6 * 3600 * 1000).toISOString(),
-        type: 'status_change',
-        title: 'Lead Converted to Admission',
-        description: 'Enrolled in Primary Stage 1-2 batch starting next Monday.',
-        performedBy: 'Kunal Murari',
-      },
-    ],
-  },
+export const TIME_SLOTS = [
+  '03:00 PM - 03:30 PM',
+  '03:30 PM - 04:00 PM',
+  '04:00 PM - 04:30 PM',
+  '04:30 PM - 05:00 PM',
+  '05:00 PM - 05:30 PM',
+  '05:30 PM - 06:00 PM',
+  '06:00 PM - 06:30 PM',
+  '06:30 PM - 07:00 PM',
+  '07:00 PM - 07:30 PM',
 ];
 
 /**
- * Loads all enquiries with fallback to local storage
+ * Loads all real enquiries from Supabase with fallback to local storage cache.
+ * NO dummy or seed data is injected.
  */
 export async function getAllEnquiries(): Promise<EnquiryRecord[]> {
   try {
@@ -221,30 +51,36 @@ export async function getAllEnquiries(): Promise<EnquiryRecord[]> {
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (!error && data && data.length > 0) {
-      // Sync local storage cache
+    if (!error && data) {
+      // Filter out any legacy dummy records if they exist in DB
+      const cleanData = (data as EnquiryRecord[]).filter((x) => !LEGACY_DUMMY_IDS.has(x.id));
       if (typeof window !== 'undefined') {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanData));
       }
-      return data as EnquiryRecord[];
+      return cleanData;
     }
   } catch (err) {
     console.warn('Supabase not available yet, using local storage cache:', err);
   }
 
-  // Fallback to local storage or seed data
+  // Fallback to local storage
   if (typeof window !== 'undefined') {
     const cached = localStorage.getItem(STORAGE_KEY);
     if (cached) {
       try {
-        return JSON.parse(cached);
+        const parsed: EnquiryRecord[] = JSON.parse(cached);
+        // Purge dummy records from cache
+        const realRecords = parsed.filter((x) => !LEGACY_DUMMY_IDS.has(x.id));
+        if (realRecords.length !== parsed.length) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(realRecords));
+        }
+        return realRecords;
       } catch (e) {
         // Parse error fallback
       }
     }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(SEED_DATA));
   }
-  return SEED_DATA;
+  return [];
 }
 
 /**
@@ -253,15 +89,16 @@ export async function getAllEnquiries(): Promise<EnquiryRecord[]> {
 export async function checkSlotAvailability(
   date: string,
   slot: string,
-  enquiryType: 'schedule_call' | 'book_visit'
+  enquiryType: string
 ): Promise<boolean> {
   const enquiries = await getAllEnquiries();
   const collision = enquiries.find(
     (e) =>
       e.booking_date === date &&
       e.booking_time_slot === slot &&
-      (e.enquiry_type === enquiryType || e.enquiry_type === 'book_visit' || e.enquiry_type === 'schedule_call') &&
+      (e.status === 'Visit Scheduled' || e.enquiry_type === 'schedule_call') &&
       e.status !== 'Lost' &&
+      e.status !== 'Invalid Lead' &&
       e.status !== 'Not Interested'
   );
   return !collision; // true if available, false if booked
@@ -303,7 +140,8 @@ export async function createEnquiry(
     ...payload,
     id: newId,
     created_at: now,
-    status: existingDuplicate ? 'Duplicate' : 'New',
+    last_updated: now,
+    status: existingDuplicate ? 'New' : 'New',
     assigned_to: 'Pooja Sharma',
     remarks: existingDuplicate
       ? `Existing lead detected: ${existingDuplicate.id} (${existingDuplicate.parent_name})`
@@ -318,7 +156,7 @@ export async function createEnquiry(
         type: 'created',
         title: `Enquiry received (${payload.enquiry_type.replace('_', ' ')})`,
         description: `Source: ${payload.lead_source}. Student: ${payload.student_name} (${payload.student_class}).`,
-        performedBy: 'Public Form',
+        performedBy: 'System',
       },
     ],
   };
@@ -358,7 +196,7 @@ export async function updateEnquiry(
   const newTimeline = [...(existing.timeline || [])];
   if (logEntry) {
     newTimeline.push({
-      id: `t-${Date.now()}`,
+      id: `t-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       timestamp: now,
       ...logEntry,
     });
@@ -367,12 +205,13 @@ export async function updateEnquiry(
   const updatedRecord: EnquiryRecord = {
     ...existing,
     ...updates,
+    last_updated: now,
     timeline: newTimeline,
   };
 
   list[index] = updatedRecord;
 
-  // Supabase update
+  // Sync Supabase
   try {
     await supabase.from('enquiries').update(updatedRecord).eq('id', id);
   } catch (err) {
@@ -387,95 +226,235 @@ export async function updateEnquiry(
 }
 
 /**
- * Calculates dashboard KPI metrics.
+ * Logs a call with outcome and appends to call history
+ */
+export async function logCall(
+  id: string,
+  callData: {
+    staffName: string;
+    outcome: CallOutcome;
+    duration?: string;
+    remarks: string;
+    nextFollowupDate?: string;
+  }
+): Promise<EnquiryRecord | null> {
+  const list = await getAllEnquiries();
+  const existing = list.find((e) => e.id === id);
+  if (!existing) return null;
+
+  const newCallLog = {
+    id: `call-${Date.now()}`,
+    timestamp: new Date().toISOString(),
+    ...callData,
+  };
+
+  let newStatus: LeadStatus = existing.status;
+  if (callData.outcome === 'Connected' || callData.outcome === 'Interested') {
+    newStatus = 'Interested';
+  } else if (callData.outcome === 'Follow-up Required' || callData.outcome === 'Callback Requested') {
+    newStatus = 'Follow-up Required';
+  } else if (callData.outcome === 'Not Interested') {
+    newStatus = 'Not Interested';
+  } else if (callData.outcome === 'Wrong Number') {
+    newStatus = 'Invalid Lead';
+  } else if (existing.status === 'New') {
+    newStatus = 'Contacted';
+  }
+
+  const updates: Partial<EnquiryRecord> = {
+    status: newStatus,
+    call_history: [...(existing.call_history || []), newCallLog],
+    remarks: callData.remarks ? `${existing.remarks ? existing.remarks + ' | ' : ''}${callData.remarks}` : existing.remarks,
+    next_followup_date: callData.nextFollowupDate || existing.next_followup_date,
+  };
+
+  return updateEnquiry(id, updates, {
+    type: 'call',
+    title: `Call: ${callData.outcome}`,
+    description: `${callData.staffName} logged call (${callData.outcome}). Remarks: ${callData.remarks || 'None'}`,
+    performedBy: callData.staffName,
+  });
+}
+
+/**
+ * Schedules a tuition centre visit
+ */
+export async function scheduleVisit(
+  id: string,
+  visitData: {
+    visitDate: string;
+    visitTime: string;
+    staffName: string;
+    visitorsCount: number;
+    remarks: string;
+  }
+): Promise<EnquiryRecord | null> {
+  const updates: Partial<EnquiryRecord> = {
+    status: 'Visit Scheduled',
+    booking_date: visitData.visitDate,
+    booking_time_slot: visitData.visitTime,
+    visitors_count: visitData.visitorsCount,
+    visit_status: 'Scheduled',
+    assigned_to: visitData.staffName,
+  };
+
+  return updateEnquiry(id, updates, {
+    type: 'visit',
+    title: `Visit Scheduled for ${visitData.visitDate} at ${visitData.visitTime}`,
+    description: `Tuition centre visit scheduled by ${visitData.staffName}. Note: ${visitData.remarks || 'Standard campus tour'}`,
+    performedBy: visitData.staffName,
+  });
+}
+
+/**
+ * Marks a scheduled tuition centre visit as completed
+ */
+export async function markVisitCompleted(
+  id: string,
+  visitDetails: VisitCompletionRecord
+): Promise<EnquiryRecord | null> {
+  const updates: Partial<EnquiryRecord> = {
+    status: 'Visit Completed',
+    visit_status: 'Completed',
+    visit_details: visitDetails,
+  };
+
+  return updateEnquiry(id, updates, {
+    type: 'visit',
+    title: 'Tuition Centre Visit Completed',
+    description: `Visit handled by ${visitDetails.handledBy}. Attendees: ${visitDetails.whoVisited}. Interest Level: ${visitDetails.interestLevel}. Next Action: ${visitDetails.nextAction}`,
+    performedBy: visitDetails.handledBy,
+  });
+}
+
+/**
+ * Converts a lead to an active admission
+ */
+export async function convertLeadToAdmission(
+  id: string,
+  conversionDetails: AdmissionConversionRecord
+): Promise<EnquiryRecord | null> {
+  const updates: Partial<EnquiryRecord> = {
+    status: 'Admission Converted',
+    is_converted: true,
+    converted_at: conversionDetails.admissionDate,
+    conversion_details: conversionDetails,
+  };
+
+  return updateEnquiry(id, updates, {
+    type: 'admission',
+    title: '🎉 Admission Converted',
+    description: `Enrolled in ${conversionDetails.programme} (${conversionDetails.batchTiming}). Fee: ₹${conversionDetails.monthlyFee}/month. Payment: ${conversionDetails.paymentStatus}. Counsellor: ${conversionDetails.counsellor}`,
+    performedBy: conversionDetails.counsellor,
+  });
+}
+
+/**
+ * Calculates all 14 requested real operational metrics dynamically.
  */
 export function calculateMetrics(enquiries: EnquiryRecord[]): DashboardMetrics {
   const todayStr = new Date().toISOString().split('T')[0];
 
   const totalEnquiries = enquiries.length;
   const newEnquiries = enquiries.filter((e) => e.status === 'New').length;
-  const todayEnquiries = enquiries.filter((e) => e.created_at.startsWith(todayStr)).length;
-  const callsScheduled = enquiries.filter((e) => e.enquiry_type === 'schedule_call' && e.status !== 'Lost').length;
-  const visitsScheduled = enquiries.filter((e) => e.enquiry_type === 'book_visit' && e.status !== 'Lost').length;
-  const pendingFollowups = enquiries.filter(
-    (e) => e.status === 'Follow-up Required' || (e.next_followup_date && e.next_followup_date <= todayStr && e.status !== 'Converted' && e.status !== 'Lost')
+  
+  const callsPending = enquiries.filter(
+    (e) => e.enquiry_type === 'schedule_call' && e.status !== 'Contacted' && e.status !== 'Admission Converted' && e.status !== 'Lost'
   ).length;
-  const convertedLeads = enquiries.filter((e) => e.status === 'Converted').length;
-  const lostLeads = enquiries.filter((e) => e.status === 'Lost' || e.status === 'Not Interested').length;
+
+  const callsCompleted = enquiries.filter(
+    (e) => (e.call_history && e.call_history.length > 0) || e.status === 'Contacted' || e.status === 'Interested' || e.status === 'Admission Converted'
+  ).length;
+
+  const followupsDueToday = enquiries.filter(
+    (e) => e.next_followup_date === todayStr && e.status !== 'Admission Converted' && e.status !== 'Lost' && e.status !== 'Invalid Lead'
+  ).length;
+
+  const followupsOverdue = enquiries.filter(
+    (e) => e.next_followup_date && e.next_followup_date < todayStr && e.status !== 'Admission Converted' && e.status !== 'Lost' && e.status !== 'Invalid Lead'
+  ).length;
+
+  const interestedLeads = enquiries.filter((e) => e.status === 'Interested').length;
+  const visitsScheduled = enquiries.filter((e) => e.status === 'Visit Scheduled').length;
+  const visitsCompleted = enquiries.filter((e) => e.status === 'Visit Completed').length;
+  const noShows = enquiries.filter((e) => e.visit_status === 'No-Show').length;
+
+  const admissionsConverted = enquiries.filter((e) => e.status === 'Admission Converted' || e.is_converted).length;
+  const lostLeads = enquiries.filter((e) => e.status === 'Lost' || e.status === 'Not Interested' || e.status === 'Invalid Lead').length;
 
   const validDenominator = totalEnquiries - lostLeads;
-  const conversionRate = validDenominator > 0 ? Math.round((convertedLeads / validDenominator) * 100) : 0;
+  const conversionRate = validDenominator > 0 ? Math.round((admissionsConverted / validDenominator) * 100) : 0;
+
+  const pendingEnquiries = enquiries.filter(
+    (e) => e.status === 'New' || e.status === 'Contact Pending' || e.status === 'Follow-up Required'
+  ).length;
 
   return {
     totalEnquiries,
     newEnquiries,
-    todayEnquiries,
-    callsScheduled,
+    callsPending,
+    callsCompleted,
+    followupsDueToday,
+    followupsOverdue,
+    interestedLeads,
     visitsScheduled,
-    pendingFollowups,
-    convertedLeads,
+    visitsCompleted,
+    noShows,
+    admissionsConverted,
     lostLeads,
     conversionRate,
+    pendingEnquiries,
   };
 }
 
 /**
- * Exports enquiries as an Excel-compatible CSV file.
+ * Exports current enquiries list to formatted CSV
  */
-export function exportEnquiriesToCSV(enquiries: EnquiryRecord[]) {
+export function exportEnquiriesToCSV(enquiries: EnquiryRecord[], filename = 'aarohan_enquiries_crm.csv') {
+  if (enquiries.length === 0) {
+    alert('No data to export.');
+    return;
+  }
+
   const headers = [
-    'Enquiry ID',
-    'Created At',
-    'Enquiry Type',
-    'Status',
+    'Lead ID',
+    'Date',
+    'Student Name',
     'Parent Name',
     'Mobile',
     'WhatsApp',
     'Email',
-    'Student Name',
     'Class',
-    'Board',
     'School',
-    'Branch',
+    'Academic Board',
     'Subjects',
-    'Mode',
-    'Batch Timing',
-    'Goal',
-    'Booking Date',
-    'Booking Slot',
-    'Call Preference',
+    'Study Mode',
+    'Enquiry Type',
     'Lead Source',
-    'Assigned To',
+    'Status',
+    'Assigned Counsellor',
     'Next Follow-up',
-    'Priority',
     'Remarks',
   ];
 
   const rows = enquiries.map((e) => [
     e.id,
-    new Date(e.created_at).toLocaleString('en-IN'),
-    e.enquiry_type,
-    e.status,
+    new Date(e.created_at).toLocaleDateString(),
+    `"${e.student_name || ''}"`,
     `"${e.parent_name || ''}"`,
     `"${e.mobile || ''}"`,
     `"${e.whatsapp || ''}"`,
     `"${e.email || ''}"`,
-    `"${e.student_name || ''}"`,
     `"${e.student_class || ''}"`,
-    `"${e.academic_board || ''}"`,
     `"${e.school_name || ''}"`,
-    `"${e.preferred_branch || ''}"`,
-    `"${(e.subjects || []).join('; ')}"`,
-    e.mode,
-    `"${e.preferred_batch_timing || ''}"`,
-    `"${e.academic_goal || ''}"`,
-    e.booking_date || '',
-    e.booking_time_slot || '',
-    e.call_preference || '',
-    e.lead_source,
+    `"${e.academic_board || ''}"`,
+    `"${(e.subjects || []).join(', ')}"`,
+    `"${e.mode || ''}"`,
+    `"${e.enquiry_type || ''}"`,
+    `"${e.lead_source || ''}"`,
+    `"${e.status || ''}"`,
     `"${e.assigned_to || ''}"`,
-    e.next_followup_date || '',
-    e.priority,
+    `"${e.next_followup_date || ''}"`,
     `"${(e.remarks || '').replace(/"/g, '""')}"`,
   ]);
 
@@ -484,68 +463,8 @@ export function exportEnquiriesToCSV(enquiries: EnquiryRecord[]) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.setAttribute('href', url);
-  link.setAttribute('download', `Aarohan_Academy_Enquiries_${new Date().toISOString().split('T')[0]}.csv`);
+  link.setAttribute('download', filename);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
 }
-
-/**
- * SQL Schema script for Supabase
- */
-export const SUPABASE_SQL_SCHEMA = `-- Aarohan Academy India: Enquiries & Bookings Schema
-CREATE TABLE IF NOT EXISTS public.enquiries (
-  id TEXT PRIMARY KEY,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  enquiry_type TEXT NOT NULL,
-  parent_name TEXT NOT NULL,
-  mobile TEXT NOT NULL,
-  whatsapp TEXT,
-  email TEXT,
-  student_name TEXT,
-  student_class TEXT,
-  school_name TEXT,
-  academic_board TEXT,
-  preferred_branch TEXT,
-  subjects JSONB DEFAULT '[]'::jsonb,
-  mode TEXT,
-  preferred_batch_timing TEXT,
-  academic_goal TEXT,
-  booking_date DATE,
-  booking_time_slot TEXT,
-  call_preference TEXT,
-  visitors_count INT DEFAULT 1,
-  specific_requirement TEXT,
-  lead_source TEXT DEFAULT 'Website',
-  utm_source TEXT,
-  utm_medium TEXT,
-  utm_campaign TEXT,
-  utm_term TEXT,
-  utm_content TEXT,
-  referrer_url TEXT,
-  landing_page TEXT,
-  status TEXT DEFAULT 'New',
-  assigned_to TEXT DEFAULT 'Pooja Sharma',
-  remarks TEXT,
-  next_followup_date DATE,
-  priority TEXT DEFAULT 'Medium',
-  is_duplicate BOOLEAN DEFAULT FALSE,
-  duplicate_of_id TEXT,
-  timeline JSONB DEFAULT '[]'::jsonb
-);
-
--- Enable Row Level Security (RLS)
-ALTER TABLE public.enquiries ENABLE ROW LEVEL SECURITY;
-
--- Allow public anonymous inserts (for public enquiry form)
-CREATE POLICY "Allow public inserts" ON public.enquiries
-  FOR INSERT TO anon WITH CHECK (true);
-
--- Allow authenticated and service role full read/update
-CREATE POLICY "Allow authenticated read and manage" ON public.enquiries
-  FOR ALL TO authenticated USING (true) WITH CHECK (true);
-
--- Allow anon select for checking slot availability
-CREATE POLICY "Allow anon select" ON public.enquiries
-  FOR SELECT TO anon USING (true);
-`;
