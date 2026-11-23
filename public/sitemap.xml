@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Authority Pages -->
   <url>
     <loc>https://aarohanacademyindia.vercel.app/</loc>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=enquiry</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://aarohanacademyindia.vercel.app/?page=about</loc>
@@ -38,12 +44,12 @@
   <url>
     <loc>https://aarohanacademyindia.vercel.app/?page=approach</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://aarohanacademyindia.vercel.app/?page=subjects</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://aarohanacademyindia.vercel.app/?page=assessment</loc>
@@ -71,13 +77,94 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://aarohanacademyindia.vercel.app/?page=enquiry</loc>
+    <loc>https://aarohanacademyindia.vercel.app/?page=privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Class-Wise High-Intent SEO Landing Pages -->
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=class-1-tuition</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=class-2-tuition</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=class-3-tuition</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=class-4-tuition</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=class-5-tuition</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=class-6-tuition</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=class-7-tuition</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=class-8-tuition</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Subject-Specific SEO Landing Pages -->
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=maths-tuition-najafgarh</loc>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://aarohanacademyindia.vercel.app/?page=privacy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://aarohanacademyindia.vercel.app/?page=science-tuition-najafgarh</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=english-tuition-najafgarh</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Locality-Specific Landing Pages (Najafgarh Micro-Markets) -->
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=tuition-in-todarmal-colony</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=tuition-in-roshanpura</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=tuition-in-prem-nagar</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=tuition-in-gupta-park</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://aarohanacademyindia.vercel.app/?page=tuition-in-najafgarh</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
   </url>
 </urlset>

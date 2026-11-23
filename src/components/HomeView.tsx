@@ -43,6 +43,9 @@ import { EnquiryFormSection } from './EnquiryFormSection';
 import { EnquiryBookingView } from './EnquiryBookingView';
 import { TuitionComparisonSection } from './TuitionComparisonSection';
 import { ParentTestimonialsSection } from './ParentTestimonialsSection';
+import { TuitionFeeEstimator } from './TuitionFeeEstimator';
+import { LocalCommuteChecker } from './LocalCommuteChecker';
+import { ClassTimelineVisual } from './ClassTimelineVisual';
 import {
   HeroCreativeBackdrop,
   RotatingAcademyStamp,
@@ -968,6 +971,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <div className="mt-12">
             <InteractiveConceptDiagramsSection lang={lang} />
           </div>
+
+          {/* 90-Minute Class Session Architecture Visual */}
+          <div className="mt-16">
+            <ClassTimelineVisual lang={lang} />
+          </div>
         </div>
       </section>
 
@@ -1809,6 +1817,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* =====================================================================
+          LOCAL COMMUTE & NEIGHBOURHOOD GUIDE
+      ===================================================================== */}
+      <section className="py-16 lg:py-24 bg-[#F8FAFC] border-y border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <LocalCommuteChecker lang={lang} />
+        </div>
+      </section>
+
+      {/* =====================================================================
           SECTION 15: FINAL ENQUIRY CTA & ADMISSIONS FORM
       ===================================================================== */}
       <section className="relative overflow-hidden py-16 lg:py-24 bg-[#FFF8EB] border-t border-slate-200/80">
@@ -1862,6 +1879,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 <span>{lang === 'en' ? 'Get Directions' : 'दिशा-निर्देश प्राप्त करें'}</span>
               </a>
             </div>
+          </div>
+
+          {/* Transparent Tuition Fee Estimator */}
+          <div className="pt-2">
+            <TuitionFeeEstimator lang={lang} />
           </div>
 
           {/* Embedded Full Enquiry & Booking System */}

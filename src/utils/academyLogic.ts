@@ -1,3 +1,5 @@
+import { SEO_LANDING_PAGES } from '../data/seoLandingData';
+
 export type Language = 'en' | 'hi';
 
 export type PageId =
@@ -18,7 +20,24 @@ export type PageId =
   | 'contact'
   | 'privacy'
   | 'enquiry'
-  | 'admin';
+  | 'admin'
+  // SEO Landing Page Pillars
+  | 'class-1-tuition'
+  | 'class-2-tuition'
+  | 'class-3-tuition'
+  | 'class-4-tuition'
+  | 'class-5-tuition'
+  | 'class-6-tuition'
+  | 'class-7-tuition'
+  | 'class-8-tuition'
+  | 'maths-tuition-najafgarh'
+  | 'science-tuition-najafgarh'
+  | 'english-tuition-najafgarh'
+  | 'tuition-in-todarmal-colony'
+  | 'tuition-in-roshanpura'
+  | 'tuition-in-prem-nagar'
+  | 'tuition-in-gupta-park'
+  | 'tuition-in-najafgarh';
 
 export type DifficultyLevel = 'Start' | 'Build' | 'Challenge';
 
@@ -196,7 +215,15 @@ export function getPageSeoMeta(
   page: PageId,
   lang: Language
 ): { title: string; description: string } {
-  const seoMap: Record<PageId, { en: { title: string; description: string }; hi: { title: string; description: string } }> = {
+  if (SEO_LANDING_PAGES[page]) {
+    const seoPage = SEO_LANDING_PAGES[page];
+    return {
+      title: lang === 'en' ? seoPage.metaTitleEn : seoPage.metaTitleHi,
+      description: lang === 'en' ? seoPage.metaDescEn : seoPage.metaDescHi,
+    };
+  }
+
+  const seoMap: Record<string, { en: { title: string; description: string }; hi: { title: string; description: string } }> = {
     home: {
       en: {
         title: 'Aarohan Academy | Tuition Classes in Najafgarh (Nursery to Class 8)',
@@ -415,7 +442,7 @@ export function getPageSeoMeta(
     },
   };
 
-  return seoMap[page][lang];
+  return (seoMap[page] && seoMap[page][lang]) || seoMap.home[lang];
 }
 
 export type TestimonialStageFilter = 'all' | 'early' | 'primary' | 'middle';

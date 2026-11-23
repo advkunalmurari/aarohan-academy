@@ -12,6 +12,7 @@ import {
   getPageSeoMeta,
 } from './utils/academyLogic';
 import { ArticleItem } from './data/academyData';
+import { SEO_LANDING_PAGES } from './data/seoLandingData';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { HomeView } from './components/HomeView';
@@ -31,6 +32,9 @@ const EnquiryBookingView = React.lazy(() =>
 );
 const AdminPortal = React.lazy(() =>
   import('./components/admin/AdminPortal').then((m) => ({ default: m.AdminPortal }))
+);
+const SeoLandingPageView = React.lazy(() =>
+  import('./components/seo/SeoLandingPageView').then((m) => ({ default: m.SeoLandingPageView }))
 );
 
 const VALID_PAGES: PageId[] = [
@@ -52,6 +56,22 @@ const VALID_PAGES: PageId[] = [
   'privacy',
   'enquiry',
   'admin',
+  'class-1-tuition',
+  'class-2-tuition',
+  'class-3-tuition',
+  'class-4-tuition',
+  'class-5-tuition',
+  'class-6-tuition',
+  'class-7-tuition',
+  'class-8-tuition',
+  'maths-tuition-najafgarh',
+  'science-tuition-najafgarh',
+  'english-tuition-najafgarh',
+  'tuition-in-todarmal-colony',
+  'tuition-in-roshanpura',
+  'tuition-in-prem-nagar',
+  'tuition-in-gupta-park',
+  'tuition-in-najafgarh',
 ];
 
 function getInitialPage(): PageId {
@@ -192,6 +212,14 @@ export default function App() {
 
           {currentPage === 'enquiry' && (
             <EnquiryBookingView
+              lang={lang}
+              onNavigate={handleNavigate}
+            />
+          )}
+
+          {Boolean(SEO_LANDING_PAGES[currentPage]) && (
+            <SeoLandingPageView
+              pageData={SEO_LANDING_PAGES[currentPage]}
               lang={lang}
               onNavigate={handleNavigate}
             />

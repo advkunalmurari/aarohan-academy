@@ -259,6 +259,101 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, lang }) => {
             </div>
           </div>
 
+          {/* Enterprise SEO Silo Internal Links (Classes, Subjects & Localities) */}
+          <div className="py-8 border-b border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-300">
+            <div>
+              <h4 className="font-bold text-[#FFC845] uppercase tracking-wider text-[11px] mb-2.5">
+                {lang === 'en' ? 'Class-Wise Tuition in Najafgarh' : 'कक्षा-वार ट्यूशन कक्षाएं'}
+              </h4>
+              <div className="flex flex-wrap gap-x-3 gap-y-1.5">
+                {[
+                  { slug: 'class-1-tuition', label: 'Class 1' },
+                  { slug: 'class-2-tuition', label: 'Class 2' },
+                  { slug: 'class-3-tuition', label: 'Class 3' },
+                  { slug: 'class-4-tuition', label: 'Class 4' },
+                  { slug: 'class-5-tuition', label: 'Class 5' },
+                  { slug: 'class-6-tuition', label: 'Class 6' },
+                  { slug: 'class-7-tuition', label: 'Class 7' },
+                  { slug: 'class-8-tuition', label: 'Class 8' },
+                ].map((item) => (
+                  <button
+                    key={item.slug}
+                    type="button"
+                    onClick={() => handleLink(item.slug as PageId)}
+                    className="hover:text-white transition-colors cursor-pointer underline-offset-2 hover:underline"
+                  >
+                    {item.label} Tuition
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-[#FFC845] uppercase tracking-wider text-[11px] mb-2.5">
+                {lang === 'en' ? 'Core Subject Tuition' : 'मुख्य विषय ट्यूशन'}
+              </h4>
+              <div className="flex flex-wrap gap-x-3 gap-y-1.5">
+                <button
+                  type="button"
+                  onClick={() => handleLink('maths-tuition-najafgarh')}
+                  className="hover:text-white transition-colors cursor-pointer underline-offset-2 hover:underline"
+                >
+                  Maths Tuition Najafgarh
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleLink('science-tuition-najafgarh')}
+                  className="hover:text-white transition-colors cursor-pointer underline-offset-2 hover:underline"
+                >
+                  Science Tuition Najafgarh
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleLink('subjects')}
+                  className="hover:text-white transition-colors cursor-pointer underline-offset-2 hover:underline"
+                >
+                  English & Grammar
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-[#FFC845] uppercase tracking-wider text-[11px] mb-2.5">
+                {lang === 'en' ? 'Najafgarh Localities Served' : 'नजफगढ़ स्थानीय क्षेत्र'}
+              </h4>
+              <div className="flex flex-wrap gap-x-3 gap-y-1.5">
+                <button
+                  type="button"
+                  onClick={() => handleLink('tuition-in-todarmal-colony')}
+                  className="hover:text-white transition-colors cursor-pointer underline-offset-2 hover:underline"
+                >
+                  Todarmal Colony
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleLink('tuition-in-roshanpura')}
+                  className="hover:text-white transition-colors cursor-pointer underline-offset-2 hover:underline"
+                >
+                  Roshanpura & Thana Rd
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleLink('tuition-in-najafgarh')}
+                  className="hover:text-white transition-colors cursor-pointer underline-offset-2 hover:underline"
+                >
+                  Central Najafgarh
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleLink('contact')}
+                  className="hover:text-white transition-colors cursor-pointer underline-offset-2 hover:underline"
+                >
+                  Gupta Park (H.No. 49B)
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* Bottom Bar */}
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300">
             <p>
